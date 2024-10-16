@@ -1,0 +1,6 @@
+transformers
+faiss-cpu
+torch
+gradio
+requests
+numpy
