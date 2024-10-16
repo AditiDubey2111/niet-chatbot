@@ -27,8 +27,8 @@ for filename in os.listdir(scraped_pages_folder):
 
 # Hard-coded for now because the scraped documents are not working well in the RAG pipeline
 # Taken from the website of the college
-docs = ["NIET is one of the premier Engineering and Management institutes of India's National Capital Region (NCR). It was established by eminent visionaries, responsible for setting up City Educational & Social Welfare Society of Meerut, with a vision to provide value driven education of global dimensions. The institute is managed by City Educational & Social Welfare Society, which runs several prestigious educational and health organizations, viz. NIET (Noida Institute of Engineering & Technology), CVPS (City Vocational Public School), Pyramid Finishing School, Dayanand Nursing Home, Chandra Sen Charitable Hospital & Om Diagnostic Center.",
-        "Noida Institute of Engineering and Technology, a self-financed institute, offering high standard quality education to students from all corners of the country, is situated in Greater Noida (a hub of global MNCs). The institute has a sprawling area of 13.90 acres and lush green ambience all around.", "NIET is the first private institute in Uttar Pradesh to get Autonomous status by UGC. The Institute is Accredited by NAAC (A Grade, 3.23) and NBA (CSE, ECE, ME, IT, Biotechnology, B.Pharm, MBA and MCA), NIRF (39th in NIET Pharmacy Institute; 145th rank in NIET Engineering Institute). It is developing as the Center of Excellence imparting technical education and generating competent professionals with a high degree of credibility, integrity, and ethical standards. We aim at recognizing, respecting, and nurturing the creative potential of each student."]
+docs = [
+    "NIET is one of the premier Engineering and Management institutes of India's National Capital Region (NCR)."]
 
 
 # Tokenize and encode documents
