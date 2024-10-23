@@ -1,21 +1,38 @@
+import os
 import gradio as gr
-from transformers import pipeline
+import torch
+from llama_cpp import Llama
 
-import rag  # rag.py file
+import setup    # setup.py file
+import rag      # rag.py file
+
+setup.download_model()
+
+llm = Llama(
+    model_path="./models/model.gguf",
+    verbose=False
+)
 
 
 def generate(query, context):
-    # Prepare the prompt for the model
-    input_text = f"Context: {context}\nQuestion: {query}\nAnswer:"
-    generator = pipeline(
-        "text-generation", model="openlm-research/open_llama_3b")
+    input_text = f"Answer the following question: {query}"
+    response = llm.create_chat_completion(
+        messages=[
+            {"role": "system",
+                "content": "You are an AI assistant that follows instruction extremely well. Help as much as you can."
+             },
+            {
+                "role": "user",
+                "content": input_text
+            }
+        ]
+    )
 
-    answer = generator(input_text, max_length=200, num_return_sequences=1)
-    return answer[0]["generated_text"]
+    return response["choices"][0]["message"]["content"]
 
 
 def chat(query, history=[]):
-    context, _source = rag.retrieve(query)
+    context = rag.retrieve(query)
     response = generate(query, context)
     history.append(response)
 

@@ -1,13 +1,11 @@
 import os
 import faiss
 from transformers import DPRContextEncoder, DPRContextEncoderTokenizer
-import gradio as gr
 
 import scraper  # scraper.py file
 
-# Scrape the website to generate 'knowledge'
-scraper.crawl_website()
-
+# Scrape the NIET website to get the documents needed to generate the "knowledge-base"
+scraper.scrape_website()
 
 # Load DPR context encoder
 ctx_encoder = DPRContextEncoder.from_pretrained(
@@ -22,14 +20,11 @@ scraped_pages_folder = os.path.join(os.path.dirname(__file__), 'scraped_pages')
 for filename in os.listdir(scraped_pages_folder):
     if filename.endswith('.txt'):
         with open(os.path.join(scraped_pages_folder, filename), 'r', encoding='utf-8') as file:
-            docs.append(file.read())
-
-
-# Hard-coded for now because the scraped documents are not working well in the RAG pipeline
-# Taken from the website of the college
-docs = [
-    "NIET is one of the premier Engineering and Management institutes of India's National Capital Region (NCR)."]
-
+            content = file.read()
+            chunk_size = 1024
+            for i in range(0, len(content), chunk_size):
+                chunk = content[i:i + chunk_size]
+                docs.append(chunk)
 
 # Tokenize and encode documents
 inputs = ctx_tokenizer(docs, return_tensors="pt",
@@ -59,7 +54,4 @@ def retrieve(query):
     D, I = index.search(query_embedding, k=1)
     retrieved_doc = doc_map[I[0][0]]
 
-    # Read the URL associated with the .txt document
-    url = retrieved_doc.splitlines()[0][len("URL: "):]
-
-    return (retrieved_doc, url)
+    return retrieved_doc

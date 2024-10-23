@@ -7,3 +7,8 @@ __pycache__/
 # Scraped pages
 scraped_pages/
 
+# Environment variables
+.env
+
+# Model files
+models/
