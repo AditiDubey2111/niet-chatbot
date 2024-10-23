@@ -15,7 +15,7 @@ llm = Llama(
 
 
 def generate(query, context):
-    input_text = f"Answer the following question: {query}"
+    input_text = f"Remember this: {context}\nNow, answer this: {query}"
     response = llm.create_chat_completion(
         messages=[
             {"role": "system",

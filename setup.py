@@ -9,8 +9,8 @@ import requests
 MODEL_NAME = os.getenv("MODEL_NAME", "orca-mini")
 MODEL_SHA_DIGEST = os.getenv(
     "MODEL_SHA_DIGEST", "66002b78c70a22ab25e16cc9a1736c6cc6335398c7312e3eb33db202350afe66")
-MODEL_URL = f"https: // registry.ollama.ai/v2/library/{
-    MODEL_NAME}/blobs/sha256: {MODEL_SHA_DIGEST}"
+MODEL_URL = f"https: // registry.ollama.ai/v2/library/" + \
+    f"{MODEL_NAME}/blobs/sha256: {MODEL_SHA_DIGEST}"
 MODEL_PATH = "./models/model.gguf"
 
 
